@@ -10,10 +10,10 @@ public class PlotWindow {
     DrawGraphics drawPlot;
 
 
-    public PlotWindow() {
+    public PlotWindow(int width, int height) {
         this.plot = new JFrame("Plot " + plotNumber);
-        drawPlot = new DrawGraphics();
-        this.plot.setSize(617, 340);
+        this.plot.setSize(width + 17, height + 40);
+        drawPlot = new DrawGraphics(width, height);
         this.plot.setVisible(true);
         this.plot.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.plot.add(drawPlot);

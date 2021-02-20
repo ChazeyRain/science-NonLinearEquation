@@ -6,8 +6,18 @@ import java.util.Arrays;
 
 public class DrawGraphics extends JPanel {
 
-    private final int PLOT_WIDTH = 600;
-    private final int PLOT_HEIGHT = 300;
+    private final int PLOT_WIDTH;
+    private final int PLOT_HEIGHT;
+
+    public DrawGraphics(int width, int height) {
+        PLOT_WIDTH = width;
+        PLOT_HEIGHT = height;
+    }
+
+    public DrawGraphics() {
+        PLOT_WIDTH = 600;
+        PLOT_HEIGHT = 300;
+    }
 
     private int xShift;
     private int yShift;
@@ -47,8 +57,15 @@ public class DrawGraphics extends JPanel {
         super.paintComponent(g);
 
         g.setColor(Color.BLACK);
-        g.drawLine(xShift, 150 + yShift, 600 - xShift, 150 + yShift);
-        g.drawLine(300 - xShift, yShift, 300 - xShift, 300 + yShift);
+
+        int xLeft = Arrays.stream(pixelsArrayX).min().isPresent() ? Arrays.stream(pixelsArrayX).min().getAsInt() : 0;
+        int xRight = Arrays.stream(pixelsArrayX).max().isPresent() ? Arrays.stream(pixelsArrayX).max().getAsInt() : 0;
+
+        int yLeft = Arrays.stream(pixelsArrayY).min().isPresent() ? Arrays.stream(pixelsArrayY).min().getAsInt() : 0;
+        int yRight = Arrays.stream(pixelsArrayY).max().isPresent() ? Arrays.stream(pixelsArrayY).max().getAsInt() : 0;
+
+        g.drawLine(xLeft, yShift, xRight, yShift);
+        g.drawLine(-xShift, yLeft, -xShift, yRight);
         for (int i = 1; i < pixelsArrayX.length; i++) {
             g.drawLine(pixelsArrayX[i - 1], pixelsArrayY[i - 1], pixelsArrayX[i], pixelsArrayY[i]);
         }
