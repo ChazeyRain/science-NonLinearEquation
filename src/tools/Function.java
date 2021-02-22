@@ -6,7 +6,7 @@ public class Function {
             //return x*x;
             return Math.sqrt(2 + x) + Math.sqrt(3 + x) - 5 * Math.pow(x * x - 2, 3);
         } catch (Exception e) {
-            return 0;
+            throw new UnsupportedOperationException();
         }
     }
 
