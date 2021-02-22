@@ -13,19 +13,20 @@ public class MainWindow extends JFrame{
 
         this.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        JTextField inputWidth = new JTextField("300", 10);
-        this.add(inputWidth);
+        JTextField inputWidth = new JTextField("200", 10);
         JTextField inputHeight = new JTextField("600", 10);
-        this.add(inputHeight);
-
         JButton computeButton = new JButton("Compute");
+
+        this.add(inputWidth);
+        this.add(inputHeight);
         this.add(computeButton);
 
         computeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int width = inputWidth.getText().matches("\\d+") ? Integer.parseInt(inputWidth.getText()) : 300;
-                int height = inputHeight.getText().matches("\\d+") ? Integer.parseInt(inputHeight.getText()) : 600;
+                int height = inputHeight.getText().matches("\\d+") ? Integer.parseInt(inputHeight.getText()) : 300;
+
                 PlotWindow window = new PlotWindow(width, height);
                 window.draw();
             }

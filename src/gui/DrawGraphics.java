@@ -9,22 +9,17 @@ public class DrawGraphics extends JPanel {
     private final int PLOT_WIDTH;
     private final int PLOT_HEIGHT;
 
-    public DrawGraphics(int width, int height) {
-        PLOT_WIDTH = width;
-        PLOT_HEIGHT = height;
-    }
-
-    public DrawGraphics() {
-        PLOT_WIDTH = 600;
-        PLOT_HEIGHT = 300;
-    }
-
     private int xShift;
     private int yShift;
     //private final int Y_AXIS;
 
     private int[] pixelsArrayX;
     private int[] pixelsArrayY;
+
+    public DrawGraphics(int width, int height) {
+        PLOT_WIDTH = width;
+        PLOT_HEIGHT = height;
+    }
 
     private void convertToPixels(double[][] points) {
         pixelsArrayX = new int[points[0].length];
@@ -56,16 +51,14 @@ public class DrawGraphics extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        int minX = Arrays.stream(pixelsArrayX).min().isPresent() ? Arrays.stream(pixelsArrayX).min().getAsInt() : 0;
+        int maxX = Arrays.stream(pixelsArrayX).max().isPresent() ? Arrays.stream(pixelsArrayX).max().getAsInt() : 0;
+        int minY = Arrays.stream(pixelsArrayY).min().isPresent() ? Arrays.stream(pixelsArrayY).min().getAsInt() : 0;
+        int maxY = Arrays.stream(pixelsArrayY).max().isPresent() ? Arrays.stream(pixelsArrayY).max().getAsInt() : 0;
+
         g.setColor(Color.BLACK);
-
-        int xLeft = Arrays.stream(pixelsArrayX).min().isPresent() ? Arrays.stream(pixelsArrayX).min().getAsInt() : 0;
-        int xRight = Arrays.stream(pixelsArrayX).max().isPresent() ? Arrays.stream(pixelsArrayX).max().getAsInt() : 0;
-
-        int yLeft = Arrays.stream(pixelsArrayY).min().isPresent() ? Arrays.stream(pixelsArrayY).min().getAsInt() : 0;
-        int yRight = Arrays.stream(pixelsArrayY).max().isPresent() ? Arrays.stream(pixelsArrayY).max().getAsInt() : 0;
-
-        g.drawLine(xLeft, yShift, xRight, yShift);
-        g.drawLine(-xShift, yLeft, -xShift, yRight);
+        g.drawLine(minX, yShift, maxX, yShift);
+        g.drawLine(- xShift, minY, - xShift, maxY);
         for (int i = 1; i < pixelsArrayX.length; i++) {
             g.drawLine(pixelsArrayX[i - 1], pixelsArrayY[i - 1], pixelsArrayX[i], pixelsArrayY[i]);
         }
