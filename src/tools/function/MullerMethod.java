@@ -1,4 +1,4 @@
-package tools;
+package tools.function;
 
 import java.util.Arrays;
 

@@ -1,4 +1,6 @@
-package tools;
+package tools.function;
+
+import tools.types.Complex;
 
 public class Function {
     public double func(double x) {
@@ -19,5 +21,9 @@ public class Function {
             dots[1][i] = func(dots[0][i]);
         }
         return dots;
+    }
+
+    public Complex complexFunc(Complex x) {
+        return x.rSum(2).sqrt().sum(x.rSum(3).sqrt()).sub(x.intPow(2).rSub(2).intPow(3));
     }
 }

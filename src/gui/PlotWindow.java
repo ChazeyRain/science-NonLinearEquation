@@ -1,6 +1,6 @@
 package gui;
 
-import tools.Function;
+import tools.function.Function;
 
 import javax.swing.*;
 

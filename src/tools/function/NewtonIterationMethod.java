@@ -1,4 +1,4 @@
-package tools;
+package tools.function;
 
 public class NewtonIterationMethod extends Function {
 
