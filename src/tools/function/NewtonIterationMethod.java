@@ -12,4 +12,5 @@ public class NewtonIterationMethod extends Function {
         }
         return newX;
     }
+
 }

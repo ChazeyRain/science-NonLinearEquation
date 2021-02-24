@@ -17,7 +17,7 @@ public class MainWindow {
     Container newton;
     Container muller;
 
-    //creating main menu container
+    //Main menu page container
     {
         mainMenu = new Container();
 
@@ -25,6 +25,7 @@ public class MainWindow {
         JButton buttonSetToInvPar   = new JButton("Inverse parabolic interpolation");
         JButton buttonNewton        = new JButton("Newton method");
         JButton drawButton          = new JButton("Draw plot");
+        JButton buttonMuller        = new JButton("Muller method");
 
         GridBagLayout defaultLayout = new GridBagLayout();
         mainMenu.setLayout(defaultLayout);
@@ -41,6 +42,8 @@ public class MainWindow {
         gbc.gridy = 2;
         mainMenu.add(buttonNewton, gbc);
         gbc.gridy = 3;
+        mainMenu.add(buttonMuller, gbc);
+        gbc.gridy = 4;
         mainMenu.add(drawButton, gbc);
 
         buttonSetToInvPar.addActionListener(new ActionListener() {
@@ -59,6 +62,14 @@ public class MainWindow {
             }
         });
 
+        buttonMuller.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setContentPane(muller);
+                SwingUtilities.updateComponentTreeUI(frame);
+            }
+        });
+
         drawButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -71,7 +82,7 @@ public class MainWindow {
         });
     }
 
-    //creating inverse parabolic container
+    //Inverse parabolic method page container
     {
         inverseParabolic = new Container();
         JTextField      inputWidth                  = new JTextField("200", 10);
@@ -176,7 +187,7 @@ public class MainWindow {
         });
     }
 
-    //Newton iteration container
+    //Newton iteration page container
     {
         newton = new Container();
 
@@ -265,7 +276,7 @@ public class MainWindow {
         });
     }
 
-    //Muller method
+    //Muller method page container
     {
         muller = new Container();
         JTextField      inputWidth                  = new JTextField("200", 10);

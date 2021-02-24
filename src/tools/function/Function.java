@@ -24,6 +24,6 @@ public class Function {
     }
 
     public Complex complexFunc(Complex x) {
-        return x.rSum(2).sqrt().sum(x.rSum(3).sqrt()).sub(x.intPow(2).rSub(2).intPow(3));
+        return Complex.subtract(Complex.sum(Complex.sqrt(Complex.rSum(x, 2)), Complex.sqrt(Complex.rSum(x, 3))), Complex.rMultiply(Complex.intPow(Complex.rSum(Complex.intPow(x, 2), -2), 3), 5));
     }
 }

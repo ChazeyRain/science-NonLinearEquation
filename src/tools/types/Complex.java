@@ -4,6 +4,7 @@ public class Complex {
     private double real;
     private double imaginary;
 
+
     public double getReal() {
         return this.real;
     }
@@ -17,103 +18,88 @@ public class Complex {
         this.imaginary = imaginary;
     }
 
-    public Complex sum(Complex num) {
-        double real = this.real;
-        double imaginary = this.imaginary;
+    //sum
+    public static Complex sum(Complex x1, Complex x2) {
+        return new Complex(x1.getReal() + x2.getReal(), x1.getImaginary() + x2.getImaginary());
+    }
+    //realSum
+    public static Complex rSum(Complex x1, double x2) {
+        return new Complex(x1.getReal() + x2, x1.getImaginary());
+    }
 
-        real += num.real;
-        imaginary += num.imaginary;
+    //subtract
+    public static Complex subtract(Complex x1, Complex x2) {
+        return new Complex(x1.getReal() - x2.getReal(), x1.getImaginary() - x2.getImaginary());
+    }
+    //reverse
+    public static Complex negate(Complex x1) {
+        return new Complex(-x1.getReal(), -x1.getImaginary());
+    }
+
+    //multiply
+    public static Complex multiply(Complex x1, Complex x2) {
+        double real = x1.getReal() * x2.getReal() - x1.getImaginary() * x2.getImaginary();
+        double imaginary = x1.getReal() * x2.getImaginary() + x2.getReal() * x1.getImaginary();
+
+        return new Complex(real, imaginary);
+    }
+    //real multiply
+    public static Complex rMultiply(Complex x1, double x2) {
+        return new Complex(x1.getReal() * x2, x1.getImaginary() * x2);
+    }
+
+    //divide
+    public static Complex divide(Complex x1, Complex x2) {
+        double denominator = x2.getReal() * x2.getReal() + x2.getImaginary() * x2.getImaginary();
+        double real = (x1.getReal() * x2.getReal() + x1.getImaginary() * x2.getImaginary()) / denominator;
+        double imaginary = (-x1.getReal() * x2.getImaginary() + x2.getReal() * x1.getImaginary()) / denominator;
 
         return new Complex(real, imaginary);
     }
 
-    public Complex rSum(double num) {
-        double real = this.real;
-        double imaginary = this.imaginary;
-
-        real += num;
-
-        return new Complex(real, imaginary);
-    }
-
-    public Complex sub(Complex num) {
-        double real = this.real;
-        double imaginary = this.imaginary;
-
-        real -= num.real;
-        imaginary -= num.imaginary;
-
-        return new Complex(real, imaginary);
-    }
-
-    public Complex rSub(double num) {
-        double real = this.real;
-        double imaginary = this.imaginary;
-
-        real -= num;
-
-        return new Complex(real, imaginary);
-    }
-
-    public Complex multiply(Complex num) {
-        double real;
-        double imaginary;
-
-        real = this.real * num.real - this.imaginary * num.imaginary;
-        imaginary = this.real * num.imaginary + num.real * this.imaginary;
-
-        return new Complex(real, imaginary);
-    }
-
-    public Complex rMultiply(double num) {
-        double real = this.real;
-        double imaginary = this.imaginary;
-
-        real *= num;
-        imaginary *= num;
-
-        return new Complex(real, imaginary);
-    }
-
-    public Complex divide(Complex num) {
-        double real;
-        double imaginary;
-
-        double denominator = num.real * num.real + num.imaginary * num.imaginary;
-        real = (this.real * num.real - this.imaginary * num.imaginary) / denominator;
-        imaginary = (this.real * num.imaginary + num.real * this.imaginary) / denominator;
-
-        return new Complex(real, imaginary);
-    }
-
-    public Complex rDivide(double num) {
-        double real = this.real;
-        double imaginary = this.imaginary;
-
-        real /= num;
-        imaginary /= num;
-
-        return new Complex(real, imaginary);
-    }
-
-    public Complex intPow(int pow) {
-        Complex num = this;
-
-        double real = this.real;
-        double imaginary = this.imaginary;
-
-        for (int i = 0; i < pow; i++) {
-            real = real * num.real - imaginary * num.imaginary;
-            imaginary = real * num.imaginary + num.real * imaginary;
+    //intPow
+    public static Complex intPow(Complex x1, int pow) {
+        Complex result = x1;
+        for (int i = 1; i < pow; i++){
+            result = Complex.multiply(result, x1);
         }
-        return (new Complex(real, imaginary));
+        return result;
     }
 
-    public Complex sqrt(){
-        double real;
-        double imaginary;
-        real = Math.sqrt((Math.sqrt(this.real * this.real + this.imaginary * this.imaginary) + this.real) / 2);
-        imaginary = Math.sqrt((Math.sqrt(this.real * this.real + this.imaginary * this.imaginary) - this.real) / 2);
-        return new Complex(real, imaginary);
+    //sqrt
+    public static Complex sqrt(Complex x1) {
+        double real = x1.getReal();
+        double imaginary = x1.getImaginary();
+        double angle;
+        if (real == 0) {
+            angle = Math.PI / 2;
+        } else {
+            angle = Math.atan(imaginary / real);
+        }
+        double abs = abs(x1);
+        return new Complex(Math.sqrt(abs) * Math.cos(angle / 2), Math.sqrt(abs) * Math.sin(angle / 2));
+    }
+
+    //abs
+    public static double abs(Complex x1) {
+        return Math.sqrt(x1.getReal() * x1.getReal() + x1.getImaginary() * x1.getImaginary());
+    }
+
+    //max
+    public static Complex max(Complex x1, Complex x2) {
+        if (x1.getReal() > x2.getReal() || (x1.getReal() == x2.getReal() && x1.getImaginary() > x2.getImaginary())) {
+            return x1;
+        } else {
+            return x2;
+        }
+    }
+
+    //min
+    public static Complex min(Complex x1, Complex x2) {
+        if (x1.getReal() > x2.getReal() || (x1.getReal() == x2.getReal() && x1.getImaginary() > x2.getImaginary())) {
+            return x2;
+        } else {
+            return x1;
+        }
     }
 }
